@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ report_title }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .report-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .report-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+        }
+
+        .report-header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .report-header .subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .report-body {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .company-info {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+        }
+
+        .company-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .summary-box {
+            background-color: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+
+        .summary-box p {
+            margin: 0;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .recommendation-box {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+
+        .recommendation-box p {
+            margin: 0;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .points-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .points-list li {
+            padding: 12px 15px 12px 40px;
+            margin-bottom: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .points-list li::before {
+            content: "●";
+            color: #667eea;
+            font-size: 20px;
+            position: absolute;
+            left: 15px;
+            top: 10px;
+        }
+
+        .risks-list li::before {
+            color: #f44336;
+        }
+
+        .metrics-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .metrics-table th {
+            background-color: #667eea;
+            color: white;
+            text-align: left;
+            padding: 12px 15px;
+            font-weight: 600;
+        }
+
+        .metrics-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .metrics-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .metrics-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .report-footer {
+            background-color: #f8f9fa;
+            padding: 20px 30px;
+            text-align: center;
+            color: #888;
+            font-size: 13px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .no-metrics {
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            color: #888;
+            font-style: italic;
+            text-align: center;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+
+            .report-container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="report-container">
+        <div class="report-header">
+            <h1>{{ report_title }}</h1>
+            <div class="subtitle">Generated on {{ generated_timestamp }}</div>
+        </div>
+
+        <div class="report-body">
+            <div class="company-info">
+                <div class="company-info-grid">
+                    <div class="info-item">
+                        <div class="info-label">Company</div>
+                        <div class="info-value">{{ company_name }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Ticker</div>
+                        <div class="info-value">{{ ticker }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Sector</div>
+                        <div class="info-value">{{ sector }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Analyst</div>
+                        <div class="info-value">{{ analyst_name }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Executive Summary</h2>
+                <div class="summary-box">
+                    <p>{{ summary }}</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Key Points</h2>
+                <ul class="points-list">
+                    {% for point in key_points %}
+                    <li>{{ point }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Risks</h2>
+                <ul class="points-list risks-list">
+                    {% for risk in risks %}
+                    <li>{{ risk }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Recommendation</h2>
+                <div class="recommendation-box">
+                    <p>{{ recommendation }}</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Key Metrics</h2>
+                {% if metrics %}
+                <table class="metrics-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for metric in metrics %}
+                        <tr>
+                            <td>{{ metric.name }}</td>
+                            <td>{{ metric.value }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <div class="no-metrics">No metrics provided for this briefing.</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="report-footer">
+            <p>&copy; {{ generated_timestamp }} | Investment Briefing Report</p>
+        </div>
+    </div>
+</body>
+</html>
