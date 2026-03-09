@@ -1,26 +1,28 @@
 import pytest
 from fastapi.testclient import TestClient
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
 from app.db.base import Base
 from app.db.session import get_db
 from app.main import app
+from app.config import get_settings
 
-# Use an in-memory SQLite database for testing
-SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
+# Use the same PostgreSQL database as the app (or set a test DB in .env)
+settings = get_settings()
+SQLALCHEMY_DATABASE_URL = settings.database_url
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+engine = create_engine(SQLALCHEMY_DATABASE_URL, pool_pre_ping=True)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-
 def override_get_db():
+    db = None
     try:
         db = TestingSessionLocal()
         yield db
     finally:
-        db.close()
-
+        if db is not None:
+            db.close()
 
 app.dependency_overrides[get_db] = override_get_db
 
