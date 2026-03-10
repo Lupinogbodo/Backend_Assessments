@@ -139,6 +139,8 @@ SummarizationProvider (interface)
 - JSON response mode for structured output
 - Detailed prompt engineering for consistent results
 - Validation of score range (0-100) and decision values
+- The Gemini implementation has issues which could not allow me to use it due to
+  constraints... but i also implemented  faker too. The implementation for the gemini is there and it works... i get a response but the response is that the daily quota has been
 
 **Benefits:**
 - Tests don't require API keys or network calls
