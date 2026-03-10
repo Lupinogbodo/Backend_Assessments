@@ -135,7 +135,7 @@ SummarizationProvider (interface)
 5. **Error handling** gracefully handles malformed responses
 
 **Gemini Implementation:**
-- Uses `gemini-1.5-flash` for speed and cost efficiency
+- Uses `gemini-2.0-flash` for speed and cost efficiency
 - JSON response mode for structured output
 - Detailed prompt engineering for consistent results
 - Validation of score range (0-100) and decision values
